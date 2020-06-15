@@ -1,0 +1,53 @@
+
+create schema darboviete;
+use darboviete;
+create table darbuotojai 
+(
+`id` INT AUTO_INCREMENT NOT NULL, 
+`vardas` varchar(100) NOT NULL, 
+`pavarde` varchar(200) NOT NULL, 
+`gimimo_metai` INT NOT NULL,
+`pareigos` varchar(255) NOT NULL,
+`skyrius` varchar(255) NOT NULL, 
+PRIMARY KEY (`id`)
+) 
+ENGINE=InnoDB DEFAULT CHARSET=`UTF8MB4` AUTO_INCREMENT=1 ;
+ 
+
+INSERT INTO darbuotojai(id, vardas, pavarde, gimimo_metai, pareigos, skyrius)
+VALUES 
+(1, 'Gediminas', 'Jonaitis', 1990, 'vadovas', 'IT'),
+(2, 'Jonas', 'Petraitis', 1991, 'Vadovas', 'Buhalterija'),
+(3, 'Vladislavas', 'Lukšys', 1990, 'programuotojas', 'IT'),
+(4, 'Rimas', 'Motuza', 1991, 'programuotojas', 'IT');
+(5, 'Sergejus', 'Motuza', 1991, 'vyr. finansininkas', 'Buhalterija');
+
+-- 1. Suskaičiuokite kiek iš viso lentelėje darbuotojai yra darbuotojų (įrašų).
+SELECT COUNT(*) FROM darbuotojai;
+
+-- 2. Išveskite visus darbuotojus kurie užima programuotojo pareigas, surikiuokite 
+-- juos pagal gimimo metus nuo jauniausio iki vyriausio.
+SELECT d.vardas "Vardas", d.pavarde "Pavardė", d.gimimo_metai "Gimimo metai"
+FROM darbuotojai d 
+WHERE d.pareigos = "programuotojas"
+ORDER BY d.gimimo_metai DESC;
+
+-- 3. Išveskite visus darbuotojus kurie yra gimę iki 1991 metų.
+SELECT  d.vardas "Vardas", d.pavarde "Pavardė", d.gimimo_metai "Gimimo metai"
+FROM darbuotojai d 
+WHERE d.gimimo_metai < 1991;
+
+-- 4. Išveskite kiek darbuotojų dirba kiekviename skyriuje 
+-- (turi būti du stulpeliai: skyriaus pavadinimas ir darbuotojų skaičius).
+SELECT  d.skyrius "Skyrius", COUNT(*)
+FROM darbuotojai d 
+GROUP BY d.skyrius;
+
+-- 5. Išveskite gimimo metus, kuriais gimė daugiausia įmonės darbuotojų
+SELECT d.gimimo_metai "Metai, kuriais gimė daugiausia darbuotojų"
+FROM darbuotojai d 
+GROUP BY d.gimimo_metai
+ORDER BY d.gimimo_metai DESC
+LIMIT 1;
+
+                   

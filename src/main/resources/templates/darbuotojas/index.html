@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Darbuotojai</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1> Darbuotojų sąrašas</h1>
+
+<a th:if="${page.number > 0}" th:href="@{/darbuotojas(pageNumber=${page.number-1},pageSize=${page.size})}"> Atgal </a>
+<a th:if="${page.number < page.totalPages-1}" th:href="@{/darbuotojas(pageNumber=${page.number+1},pageSize=${page.size})}"> Pirmyn </a>
+
+<table class="table">
+    <tr>
+        <td>id</td>
+        <td>vardas</td>
+        <td>pavarde</td>
+        <td>gimimo metai</td>
+        <td>pareigos</td>
+        <td>skyrius</td>
+
+    </tr>
+
+    <tr th:each="drb : ${page.content}">
+        <td> <a th:href="@{/darbuotojas/{id}(id=${drb.id})}"><span th:text="${drb.id}"></span></a> </td>
+        <td th:text="${drb.vardas}"></td>
+        <td th:text="${drb.pavarde}"></td>
+        <td th:text="${drb.gm}"></td>
+        <td th:text="${drb.pareigos}"></td>
+        <td th:text="${drb.skyrius}"></td>
+        <td>
+            <a th:href="@{/darbuotojas/taisyti-form/{id}(id=${drb.id})}"> Taisyti</a>
+            <a th:href="@{/darbuotojas/delete-ask/{id}(id=${drb.id})}"> Naikinti</a>
+        </td>
+    </tr>
+
+</table>
+</body>
+</html>

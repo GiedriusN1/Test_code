@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <title>Surūšiuoti darbuotojai</title>
+</head>
+<body>
+<h1> Surūšiuoti pagal gimimo metus</h1>
+
+<table class="table">
+    <tr>
+        <td>id</td>
+        <td>vardas</td>
+        <td>pavarde</td>
+        <td>gimimo metai</td>
+        <td>pareigos</td>
+        <td>skyrius</td>
+    </tr>
+
+    <tr th:each="sd : ${page.content}">
+        <td> <a th:href="@{/sorted/{id}(id=${sd.id})}"><span th:text="${sd.id}"></span></a> </td>
+        <td th:text="${sd.vardas}"></td>
+        <td th:text="${sd.pavarde}"></td>
+        <td th:text="${sd.gm}"></td>
+        <td th:text="${sd.pareigos}"></td>
+        <td th:text="${sd.skyrius}"></td>
+    </tr>
+
+</table>
+</body>
+</html>
